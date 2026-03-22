@@ -1354,10 +1354,12 @@ The ID of the created thread will be the same as the ID of the message, and as s
 ###### JSON Params
 
 | Field                  | Type    | Description                                                                                                                                                                          |
-| ---------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+|------------------------|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | name                   | string  | The name of the channel (1-100 characters)                                                                                                                                           |
 | auto_archive_duration? | integer | Duration in minutes to stop showing in the channel list after inactivity (one of 60, 1440, 4320, 10080, default 4320)                                                                |
 | rate_limit_per_user?   | integer | Duration in seconds a user has to wait before sending another message (max 21600); bots, as well as users with the permission `MANAGE_MESSAGES` or `MANAGE_CHANNELS`, are unaffected |
+| type?                  | integer | The [type of thread](#channel-type) to create (default `PUBLIC_THRAD` and cannot be changed)                                                                                         |
+| location?              | string  | The source of where the thread was created (e.g. message, plus button)                                                                                                               |
 
 <RouteHeader method="POST" url="/channels/{channel.id}/threads" supportsAuditReason supportsBot>
   Create Thread
@@ -1377,14 +1379,15 @@ In thread-only channels:
 ###### JSON/Form Params
 
 | Field                  | Type                                                                         | Description                                                                                                                                                                          |
-| ---------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+|------------------------|------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | name                   | string                                                                       | The name of the channel (1-100 characters)                                                                                                                                           |
 | auto_archive_duration? | integer                                                                      | Duration in minutes to stop showing in the channel list after inactivity (one of 60, 1440, 4320, 10080, default 4320)                                                                |
 | rate_limit_per_user?   | integer                                                                      | Duration in seconds a user has to wait before sending another message (max 21600); bots, as well as users with the permission `MANAGE_MESSAGES` or `MANAGE_CHANNELS`, are unaffected |
-| type? ^1^              | integer                                                                      | the [type of thread](#channel-type) to create (default `PRIVATE_THREAD`)                                                                                                             |
+| type? ^1^              | integer                                                                      | The [type of thread](#channel-type) to create (default `PRIVATE_THREAD`)                                                                                                             |
 | invitable?             | boolean                                                                      | Whether non-moderators can add other non-moderators to a thread; only available when creating a private thread                                                                       |
 | applied_tags?          | array[snowflake]                                                             | The IDs of the tags that are applied to a thread in a thread-only channel (max 5)                                                                                                    |
 | message? ^1^           | [thread-only channel message](#thread-only-channel-message-structure) object | Contents of the first message in the thread                                                                                                                                          |
+| location?              | string                                                                       | The source of where the thread was created (e.g. message, plus button)                                                                                                               |
 
 ^1^ In API v10, this will be changed to be a required field, with no default.
 
